@@ -35,10 +35,55 @@ codebase and incorporating contributions from GSFC really boils down to a gap in
 the robustness of and rigor for engineering practices.  As a team maintaining a
 production data system we need assurances and validation that 
 
+- All changes are validated by fully automated testing against a suite of
+  test granules to ensure that there has been no fidelity or performance
+  regression associated with a code change.
+- All code are validated against an automated unit testing suite to ensure
+  structural and semantic correctness.
 - A change to algorithmic code is isolated in a well structured pull request
   that we can selectively test, apply and if necessary rollback.
 - That we can automatically compile and deploy any code updates with limited
   changes to our continuous integration pipelines.
-- 
+- Our codebase is balancing resource utilization and compute performance with
+  output fidelity.  Obviously a system that produces perfect surface reflectance
+  values is optimal but impractical if it takes many hours to run.
 - Our codebase is flexible enough to support data format changes from upstream data
   providers (USGS/NASA and ESA) with very simple modifications.
+- The language and structure we employ are friendly to newer engineers who are
+  onboarded to the project.
+- Releases are tagged so that deployments in production are pinned to specific
+  versions of the code and this is included in product metadata.
+
+
+### Our vision - A Community Driven Atmospheric Correction Model
+The goals described above reduce several of the HLS project's largest risk factors and friction points around LaSRC integration. But even with these enhancements we would still be reliant on a legacy codebase maintained principally by a very small team of developers. Ideally we would prefer a library with a large community of maintainers led by a consortium of organizations that provide continuous improvements to the codebase and can quickly react to upstream source product changes from ESA and NASA
+
+To achieve this vision we proposed the following steps.
+
+- Create a Rust port of the existing ESPA / USGS LaSRC C library. The adoption of Rust provides equal if not superior numerical performance while increasing language safety and maintainability. In addition, the increasing momentum around Rust in academic and engineering communities will ensure we have a larger pool of potential new maintainers who would otherwise be less interested in working on a large legacy C codebase.
+
+- Create an archive of reference Landsat and Sentinel images to be used for reflectance target performance assessment and memory/CPU performance assessment to track algorithmic improvements and regressions.
+
+- Create a repository of fully automated Jupyter notebooks used to compare and analyze LaSRC outputs so that we can automate inter-comparison testing of our Rust code and we continually test algorithmic updates to evaluate their performance and validity.
+
+
+###  The arrival of a robot army 
+My initial estimate for building and testing this Rust LaSRC port was 3-4 months
+of 1 FTE effort.  Given the size of our production team and the continuous
+demands of operating a production system while piloting other SNWG solutions it
+was difficult to prioritize the time to tackle this.
+
+But as we investigated the ESPA LaSRC code updates we would need to make to add
+alternative auxiliary data support for the new low-latency solution
+requirements, we realized that it might be more efficient to add this support in
+new, simpler Rust codebase.
+
+Luckily, this has coincided with a massive growth in the coding capabilities of
+LLMs and the increased adoption of multi-agent harnesses to decompose
+engineering tasks into work streams that can be executed in parallel. 
+
+Using several Claude Code sessions we had agents attempt to replicate the ESPA
+LaSRC codebase as closely as possible.  By continually comparing the agentic
+code's output against a reference ESPA LaSRC granule output we were able to make
+adjustments and refactor portions of the code the output was within the sensor's
+noise floor threshold.
