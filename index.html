@@ -405,12 +405,13 @@
       </div>
       <div class="col" style="flex:.66">
         <div class="rowcards">
-          <div class="card"><h3><span class="chip rust">1</span>Numerical performance holds</h3>
+          <div class="card"><h3><span class="chip rust">1</span>Numerical performance</h3>
             <p>Equal, and in our case better, throughput than the C implementation. We were not willing to trade fidelity or speed for ergonomics.</p></div>
           <div class="card"><h3><span class="chip rust">2</span>Safety at the language level</h3>
             <p>Memory and type safety are enforced by the compiler rather than by reviewer discipline, which is exactly where a long lived scientific codebase tends to erode.</p></div>
           <div class="card"><h3><span class="chip rust">3</span>A larger pool of future maintainers</h3>
-            <p>Rust has real momentum in academic and engineering communities. Far more people will volunteer for a Rust project than for a large legacy C codebase.</p></div>
+            <p>Rust has real momentum in academic and engineering communities.
+            The contributor pool for a Rust project is bigger than for a large legacy C codebase.</p></div>
         </div>
       </div>
     </div>
@@ -429,11 +430,11 @@
       </div>
       <div class="cell" style="background:#FBEEEC;display:flex;flex-direction:column;justify-content:center">
         <p style="font-size:.6em;margin:0;line-height:1.4">Against a team of our size, running a production system while piloting other SNWG solutions,
-        that was <strong>not a block of time we could prioritise</strong>. So it sat on the list.</p>
+        that was <strong>not a block of time we could prioritize.</strong></p>
       </div>
     </div>
     <div class="card" style="margin-top:.5em;background:#ECF6F2">
-      <h3 style="color:#1E6B5C;font-size:.9em">Then the GDAS work forced the question</h3>
+      <h3 style="color:#1E6B5C;font-size:.9em">The HLS low-latency solution changed this prioritization</h3>
       <p style="font-size:.6em">As we scoped the ESPA changes needed to add alternative auxiliary data support for the low latency
       requirement, we realised it might be <strong>less work to add that support in a new, simpler Rust codebase</strong> than to retrofit it into the existing one.</p>
     </div>
@@ -446,15 +447,16 @@
   <section>
     <p class="kicker">Timing</p>
     <h2>The arrival of a robot army</h2>
-    <p style="font-size:.64em;max-width:92%;margin:.1em 0 .5em">This coincided with a steep rise in the coding capability of large language models, and with the adoption of
+    <p style="font-size:.64em;max-width:92%;margin:.1em 0 .5em">This
+    prioritization coincided with a steep rise in the coding capability of large language models, and with the adoption of
     <strong>multi-agent harnesses</strong> that decompose an engineering task into work streams which can run in parallel.</p>
     <div class="grid g3">
       <div class="card"><h3><span class="chip navy">1</span>Parallel work streams</h3>
-        <p>Several Claude Code sessions working concurrently on different modules of the port rather than one engineer working sequentially.</p></div>
+        <p>Several agent sessions working concurrently on different modules of the port rather than one engineer working sequentially.</p></div>
       <div class="card"><h3><span class="chip deep">2</span>A reference to aim at</h3>
-        <p>Agents were asked to replicate the ESPA LaSRC codebase as closely as possible, with the C source as the specification.</p></div>
+        <p>The model was initially prompted to replicate the ESPA LaSRC codebase as closely as possible, with the C source as the specification.</p></div>
       <div class="card"><h3><span class="chip teal">3</span>An objective stopping condition</h3>
-        <p>Output compared continuously against a reference ESPA granule, refactoring until the difference sat inside the sensor noise floor.</p></div>
+        <p>Output compared continuously against a reference ESPA LaSRC granule, refactoring until the delta was less than the sensor noise floor.</p></div>
     </div>
     <div class="band" style="margin-top:.5em">The critical ingredient was not the model. It was <b>having a reference output to measure against</b>.</div>
     <aside class="notes">And this is where the timing gets lucky, because the moment we reframed the port as the cheaper route to GDAS support happened to coincide with a very steep rise in the coding capability of large language models, and with the adoption of multi-agent harnesses that let you decompose an engineering task into work streams that run in parallel. So what we actually did was run several Claude Code sessions concurrently, each working on different modules of the port, rather than one engineer working through it sequentially. The agents were asked to replicate the ESPA LaSRC codebase as closely as possible, with the C source acting as the specification. And crucially there was an objective stopping condition: we continually compared the generated code's output against a reference ESPA LaSRC granule output, and kept adjusting and refactoring until the difference sat inside the sensor's noise floor threshold. I want to underline the third point, because I think it is the transferable lesson from this whole exercise. The critical ingredient was not the model. It was having a reference output to measure against. Without that, you have generated a large amount of plausible Rust and no way to know anything about it.</aside>
@@ -462,9 +464,9 @@
 
   <!-- 13 - THE LOOP -->
   <section>
-    <p class="kicker">Method</p>
+    <p class="kicker">Approach</p>
     <h2>The loop</h2>
-    <svg class="dgm" viewBox="0 0 1000 300" role="img" aria-label="The porting loop: an agent ports a module, the result is run on a reference granule, the output is differenced against the ESPA C output, and if the difference is outside the sensor noise floor the loop returns to adjust and re-run, otherwise the module is accepted.">
+    <svg class="dgm" viewBox="0 0 1000 300" role="img" aria-label="The porting loop: an agent ports code, the result is run on a reference granule, the output is differenced against the ESPA C output, and if the difference is outside the sensor noise floor the loop returns to adjust and re-run, otherwise the module is accepted.">
       <defs>
         <marker id="ah2" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0 0 L10 5 L0 10 z" fill="#1C7293"></path>
@@ -472,8 +474,10 @@
       </defs>
 
       <rect class="box" x="8" y="40" width="182" height="86" rx="10"></rect>
-      <text class="bx" x="99" y="76" text-anchor="middle" style="font-size:17px">Agent ports</text>
-      <text class="bx" x="99" y="97" text-anchor="middle" style="font-size:17px">a module</text>
+      <text class="bx" x="99" y="76" text-anchor="middle"
+      style="font-size:17px">Agents port</text>
+      <text class="bx" x="99" y="97" text-anchor="middle"
+      style="font-size:17px">C code</text>
       <text class="sb" x="99" y="116" text-anchor="middle">C source as spec</text>
 
       <path class="ln" marker-end="url(#ah2)" d="M190 83 H218"></path>
@@ -492,7 +496,7 @@
 
       <path class="hot" d="M738 23 L812 83 L738 143 L664 83 Z"></path>
       <text class="sb" x="738" y="76" text-anchor="middle" style="font-weight:700;fill:#1C7293">inside the</text>
-      <text class="sb" x="738" y="93" text-anchor="middle" style="font-weight:700;fill:#1C7293">noise floor?</text>
+      <text class="sb" x="738" y="93" text-anchor="middle" style="font-weight:700;fill:#1C7293">threshold</text>
 
       <path class="ln" marker-end="url(#ah2)" d="M812 83 H846"></path>
       <text class="cap" x="829" y="70" text-anchor="middle" style="font-size:13px;font-weight:700;fill:#3FA796">yes</text>
@@ -509,13 +513,14 @@
 
   <!-- 14 - A FOUNDATION, NOT A FINISHED PORT -->
   <section>
-    <p class="kicker">Honesty</p>
+    <p class="kicker">A good start</p>
     <h2>A strong foundation, not a finished port</h2>
     <div class="ba" style="margin-top:.3em">
       <div class="panel after">
         <h3>What we had</h3>
         <ul>
           <li>A complete Rust implementation of the algorithm</li>
+          <li>Drastically improved Python wrapper and CLI code</li>
           <li>Good agreement on the initial test granules</li>
           <li>Months of estimated effort compressed into weeks</li>
         </ul>
@@ -530,7 +535,6 @@
         </ul>
       </div>
     </div>
-    <div class="band" style="margin-top:.5em">Good agreement on a handful of granules is <b>a hypothesis, not a result</b>. Proving it needed the thing we had been asking for since 2019.</div>
     <aside class="notes">Now I want to be careful here, because there is a version of this talk that stops at the previous slide and declares victory, and that version would be wrong. What this initial round of AI assisted development gave us was a strong foundation. We had a complete Rust implementation of the algorithm, we had good agreement on our initial test granules, and we had compressed months of estimated effort into weeks. What we did not have was evidence across a representative range of targets. We had no way to distinguish genuine agreement from coincidence on an easy scene. And we had no confidence that where the port had made an alternative implementation choice, that choice was deliberate rather than accidental. Good agreement on a handful of granules is a hypothesis, not a result. Proving it one way or the other needed exactly the thing the production team had been asking for since the start of the project.</aside>
   </section>
 
@@ -539,16 +543,17 @@
   <!-- 15 - THE SUITE -->
   <section>
     <p class="kicker">Validation</p>
-    <h2>The suite we had been asking for</h2>
-    <p style="font-size:.64em;max-width:92%;margin:.1em 0 .5em">Since the start of HLS the production team has asked for a large scale automated validation suite, so that algorithmic
-    change could be absorbed safely while measuring its effect across a wide, representative set of targets.</p>
+    <h2>The testing suite we have always needed</h2>
+    <p style="font-size:.64em;max-width:92%;margin:.1em 0 .5em">Since the start
+    of the HLS project, the production team has asked for a large scale automated validation suite, so that algorithmic
+    change could be validated safely while measuring its effect across a wide, representative set of targets.</p>
     <div class="cols">
       <div class="col"><div class="card"><h3><span class="chip teal">1</span>Built in house</h3>
         <p>Rather than depend on an external team for our validation testing, <strong>Trang Vo and Madhu Sridhar</strong> have been building and refining this system continuously.</p></div></div>
       <div class="col"><div class="card"><h3><span class="chip green">2</span>Fidelity and cost together</h3>
-        <p>Resource utilisation is logged while outputs are generated, so the same run that proves reflectance agreement also measures <strong>performance regression</strong>.</p></div></div>
+        <p>Resource utilization can be logged while outputs are generated, so the same run that proves reflectance agreement also measures <strong>performance regression</strong>.</p></div></div>
     </div>
-    <div class="band" style="margin-top:.5em"><b>hls-application</b> &middot; <span style="font-family:var(--mono);font-size:.9em">notebooks/LaSRC_container_validation.ipynb</span></div>
+    <div class="band" style="margin-top:.5em"><b>hls-application</b> &middot; <span style="font-family:var(--mono);font-size:.9em">https://github.com/NASA-IMPACT/hls-application/blob/lasrc_validation/notebooks/LaSRC_container_validation.ipynb</span></div>
     <aside class="notes">Since the HLS project started, the production team has been requesting a large scale automated validation suite from the science team. The reason is exactly what I described in the first act: we want to be able to incorporate algorithmic change safely, while measuring what that change does across a wide and representative set of targets, rather than across whichever two granules someone happened to test. The important decision we made here is that rather than continue to rely on an external team to manage our validation testing, we built it ourselves. Trang Vo and Madhu Sridhar have been continually building and refining this system, and I want to give them explicit credit because this suite is the load bearing element of everything in the rest of this talk. The second thing worth noting is that we enable resource utilisation logging while generating the outputs. That means the same run that proves reflectance agreement also gives us the data to assess performance regression. Fidelity and cost get measured together, by one process, which is the only way either of them stays honest over time.</aside>
   </section>
 
@@ -557,10 +562,8 @@
     <p class="kicker">Validation</p>
     <h2>What the suite actually does</h2>
     <div class="statgrid" style="grid-template-columns:repeat(4,1fr);margin-top:.25em">
-      <div class="cell"><span class="n">10</span><p class="k">golden granules, Landsat 8, spanning a representative range of targets</p></div>
-      <div class="cell"><span class="n">7</span><p class="k">bands compared per granule, B01 Ultrablue through B07 Red Edge 3</p></div>
       <div class="cell"><span class="n">432</span><p class="k">rasters paired and compared, 45.93 GB per side</p></div>
-      <div class="cell"><span class="n">2</span><p class="k">output stages: immediate LaSRC, and final HLS L30 and S30</p></div>
+      <div class="cell"><span class="n">7</span><p class="k">bands compared per granule, B01 Ultrablue through B07 Red Edge 3</p></div>
     </div>
     <ol class="steps" style="margin-top:.5em">
       <li><strong>Discover and pair.</strong> List rasters under both output prefixes, detect stage, keep only symmetric pairs so nothing is compared against a gap.</li>
@@ -588,7 +591,7 @@
   <section>
     <p class="kicker">Reality</p>
     <h2>Humans in the loop</h2>
-    <p style="font-size:.66em;max-width:92%;margin:.1em 0 .5em">When we ran the suite against the full set of test granules rather than the initial few, we
+    <p style="font-size:.66em;max-width:92%;margin:.1em 0 .5em">When we ran the Rust code and validation suite against the full set of test granules rather than the initial few, we
     <strong>discovered a host of bugs</strong>.</p>
     <div class="cols">
       <div class="col"><div class="card" style="background:#FBEEEC"><h3 style="color:#9B2F23"><span class="chip coral">&#9888;</span>The foundation had gaps</h3>
@@ -596,38 +599,39 @@
       <div class="col"><div class="card" style="background:#ECF6F2"><h3 style="color:#1E6B5C"><span class="chip green">&#10003;</span>The loop closed them fast</h3>
         <p><strong>Chris Holden</strong> tackled these incrementally, combining agent driven refactoring with manual review. There was a lot to address, but working in an agentic loop accelerated it dramatically.</p></div></div>
     </div>
-    <div class="band" style="margin-top:.5em">This is the part worth generalising: <b>agents found the bugs faster because a human was reading every fix</b>.</div>
+    <div class="band" style="margin-top:.5em">While LLM usage accelerated this process it is only as capable as the engineer / scientist working with it.</div>
     <aside class="notes">So we ran the suite against the full set of test granules, and we discovered a host of bugs. I think that is the most important sentence in this talk, and I want to sit on it for a second. The initial agent assisted port looked good. It looked good because it was being measured against a small number of granules. As soon as we measured it across a wider representative set of targets, a whole range of inconsistencies appeared that had simply been invisible before. That is not a failure of the approach, it is the approach working. The validation suite is what converts a plausible port into a trustworthy one. Chris Holden then started incrementally tackling these, using a combination of agent driven refactoring and manual review. There were a lot of inconsistencies and bugs to work through, but working in an agentic loop accelerated that process dramatically. And the generalisable point, I think, is the combination. The agents found and fixed bugs quickly because a human was reading every fix and deciding whether it was right. Neither of those halves gets there alone.</aside>
   </section>
 
   <!-- 19 - FOUR CLASSES OF BUG -->
   <section>
-    <p class="kicker">What we found</p>
+    <p class="kicker">Bugs / Inconsitencies</p>
     <h2>Four classes of difference</h2>
     <div class="rowcards" style="margin-top:.25em">
       <div class="card"><h3><span class="chip coral">1</span>Type conversion, faithfully replicated</h3>
-        <p>The ESPA C codebase is inconsistent about type conversion in a number of places. Our port replicated many of those conversions faithfully, which produced <strong>residual accumulation differences</strong>.</p></div>
+        <p>The ESPA C codebase is inconsistent about type conversion in a number
+        of places. The model replicated many of those conversions faithfully, which produced <strong>residual accumulation differences</strong>.</p></div>
       <div class="card"><h3><span class="chip amber">2</span>Invalid auxiliary retrieval</h3>
-        <p>Where auxiliary retrieval fails, the Rust port set transmittance to <strong>zero</strong>. The C implementation sets it to the <strong>closest non-fill neighbour</strong>.</p></div>
+        <p>Where auxiliary retrieval fails, the model set transmittance to <strong>zero</strong>. The C implementation sets it to the <strong>closest non-fill neighbour</strong>.</p></div>
       <div class="card"><h3><span class="chip teal">3</span>Scene centre geometry</h3>
-        <p>The Rust port <strong>calculated</strong> the scene centre geometry. The C version takes solar zenith from metadata and sets view zenith and relative azimuth to zero.</p></div>
+        <p>The model chose to <strong>calculate</strong> the scene centre geometry. The C version takes solar zenith from metadata and sets view zenith and relative azimuth to zero.</p></div>
       <div class="card"><h3><span class="chip deep">4</span>Scene centre interpolation</h3>
-        <p>For centre pressure, ozone and water vapor the Rust port used <strong>bilinear interpolation</strong> where C used <strong>nearest neighbour</strong>.</p></div>
+        <p>For centre pressure, ozone and water vapor the model chose <strong>bilinear interpolation</strong> where C used <strong>nearest neighbour</strong>.</p></div>
     </div>
     <aside class="notes">Let me give you four concrete examples, because I think they are more interesting than the headline. First, type conversion. The ESPA LaSRC C codebase is very inconsistent about type conversion in a number of places. Our port attempted to replicate many of those conversions faithfully, and the result was residual accumulation differences. That is a subtle failure mode worth naming: the port was wrong precisely because it was being faithful. Second, invalid auxiliary retrieval. Where retrieval fails, the Rust port set transmittance to zero. The C implementation sets it to the closest non-fill neighbour. Those diverge exactly over the pixels where the atmosphere is hardest to characterise, which is to say the pixels people care about. Third, scene centre geometry. The Rust port calculated the geometry. The C version takes the solar zenith angle from metadata and sets view zenith and relative azimuth to zero. Fourth, scene centre interpolation: the Rust port bilinearly interpolated to get centre pressure, ozone and water vapor, where C does nearest neighbour. Now, look at three and four again, because they are a different kind of thing from one and two, and that is the next slide.</aside>
   </section>
 
   <!-- 20 - MORE RIGHT THAN THE REFERENCE -->
   <section>
-    <p class="kicker">The uncomfortable part</p>
-    <h2>Sometimes the port was more right</h2>
+    <p class="kicker">Models are capable</p>
+    <h2>Sometimes the model's choices were more correct than the ESPA codebase</h2>
     <div class="ba" style="margin-top:.3em">
       <div class="panel before" style="background:#F1F5F9">
         <h3 style="color:var(--deep)">What we chose to do</h3>
         <ul>
           <li>Match the C implementation exactly, including where it is inconsistent</li>
           <li>Accept a known worse choice in order to prove equivalence first</li>
-          <li>Record each divergence rather than quietly resolve it</li>
+          <li>Record each divergence to address later</li>
         </ul>
       </div>
       <div class="arrowmid">&#8594;</div>
@@ -635,7 +639,7 @@
         <h3>Why that was the right order</h3>
         <ul>
           <li>Equivalence is the only claim that can be demonstrated objectively</li>
-          <li>Once demonstrated, every divergence can be addressed <strong>one at a time</strong></li>
+          <li>Once demonstrated, every divergence can be addressed <strong>individually</strong></li>
           <li>Each becomes a reviewable change with a measurable effect, not an argument</li>
         </ul>
       </div>
@@ -651,18 +655,14 @@
     <p class="kicker">Results</p>
     <h2>Where we are now</h2>
     <div class="statgrid" style="margin-top:.35em">
-      <div class="cell"><span class="n">100%</span><p class="k">alignment between the Rust and ESPA C outputs, within the <strong>5 DN</strong> threshold, across every granule in the golden reference set</p></div>
-      <div class="cell"><span class="n warm">30%</span><p class="k">faster than the ESPA C implementation</p></div>
-      <div class="cell"><span class="n warm">7%</span><p class="k">less memory used</p></div>
+      <div class="cell"><span class="n">100%</span><p class="k">Alignment between the Rust and ESPA C outputs, within the <strong>5 DN</strong> threshold, across every granule in the golden reference set</p></div>
+      <div class="cell"><span class="n warm">30%</span><p class="k">Faster than the ESPA C implementation</p></div>
+      <div class="cell"><span class="n warm">7%</span><p class="k">Less memory used</p></div>
     </div>
     <div class="card" style="margin-top:.5em;background:#ECF6F2">
       <h3 style="color:#1E6B5C;font-size:.9em">Why 5 DN</h3>
       <p style="font-size:.58em">The threshold was chosen on feedback from the science team, so that alignment between the ESPA and Rust outputs is measured against
       <strong>a defined target rather than a judgement call</strong>. 5 HLS DN corresponds to 0.0005 reflectance.</p>
-    </div>
-    <div class="todo slim">
-      <span class="tag">Confirm before presenting</span>
-      <p>Headline figures carried from <span class="inlinecode">outline.md</span>. Confirm against the current validation run.</p>
     </div>
     <aside class="notes">So where did we land. Two results. First, one hundred percent alignment between the Rust and the ESPA C LaSRC outputs, within the five DN threshold, for every granule in the golden granules reference set. Second, the Rust port runs about thirty percent faster using about seven percent less memory. I want to say a word about the threshold, because a number like five DN sounds arbitrary unless you know where it came from. We selected it based on feedback from the science team, precisely so that we had a well defined target we were working towards rather than a judgement call about whether two images looked close enough. Five HLS DN corresponds to 0.0005 reflectance. Having that number fixed in advance changed the character of the work: every fix either moved a band inside the threshold or it did not, and there was nothing to negotiate. If you take one process lesson from this talk, I would suggest it is that one. Agree the acceptance threshold before you start, with the people whose judgement you are encoding.</aside>
   </section>
@@ -670,7 +670,7 @@
   <!-- 22 - THE EVIDENCE -->
   <section>
     <p class="kicker">Results</p>
-    <h2>The evidence</h2>
+    <h2>Validation results</h2>
     <div class="cols" style="margin-top:.2em">
       <div class="col" style="flex:1">
         <img class="fig" style="max-height:300px;width:auto" src="images/validation-boxplot.png"
@@ -719,20 +719,25 @@
 
   <!-- 24 - WHAT IS NEXT -->
   <section>
-    <p class="kicker">Next</p>
+    <p class="kicker">Next Steps</p>
     <h2>What is next, in priority order</h2>
     <ol class="steps" style="margin-top:.25em">
-      <li><strong>GDAS auxiliary data.</strong> The largest rationale for undertaking the port was to reduce the effort of switching to GDAS based auxiliary data for the HLS low latency solution. We begin testing and evaluating that code path in this PI.</li>
-      <li><strong>Structural refactoring.</strong> The Rust port currently mirrors the original ESPA C structure. We will incrementally restructure it to improve maintainability and to make it easier for outside contributors to work on.</li>
-      <li><strong>Performance optimisation.</strong> Beyond the targeted tweaks already made, there is a large space of changes available to reduce runtime, resource utilisation and overall processing cost.</li>
+      <li><strong>GDAS auxiliary data.</strong> The largest rationale for
+        undertaking the port was to reduce the effort of switching to GDAS based
+        auxiliary data for the HLS low-latency solution. We begin testing and evaluating that code path in this PI.</li>
+      <li><strong>Structural refactoring.</strong> The Rust port currently
+        mostly mirrors the original ESPA C structure. We will incrementally restructure it to improve maintainability and to make it easier for outside contributors to work on.</li>
+      <li><strong>Performance optimization.</strong> Beyond the targeted tweaks already made, there is a large space of changes available to reduce runtime, resource utilization and overall processing cost.</li>
     </ol>
-    <div class="band" style="margin-top:.55em">For all three, the time to implement and test is <b>drastically lower than the same work would take in the ESPA codebase</b>. That was the point.</div>
+    <div class="band" style="margin-top:.55em">For all three, the time to
+      implement and test is <b>drastically lower than the same work would take
+        in the ESPA codebase.</b></div>
     <aside class="notes">What happens next, in rough priority order. First and most important, GDAS. The largest single rationale for undertaking this port was to reduce the level of effort involved in switching to GDAS based auxiliary data to support the HLS low latency solution, and we will begin testing and evaluation of that code path in this PI. This is the slide where the whole exercise either pays off or does not, and it is the one I would ask you to hold us to. Second, structural refactoring. The Rust port currently reflects the original ESPA C structure fairly closely, because that is what made equivalence provable. Now that equivalence is established we will incrementally restructure it to improve maintainability and to lower the barrier for other contributors. Third, performance optimisation, which as I said is largely untouched. And the thread running through all three is that the time to implement and test each of them is drastically lower than the same work would take in the ESPA codebase. That reduction is the return on the port, and it is why I would argue the port pays for itself even before the community goal.</aside>
   </section>
 
   <!-- 25 - COLLABORATION -->
   <section data-background-color="#0B2545">
-    <p class="kicker" style="color:var(--mint)">The proposal</p>
+    <p class="kicker" style="color:var(--mint)">Collaboration</p>
     <h2 style="color:#fff">How we would like to work together</h2>
     <p style="color:var(--ice);font-size:.58em;max-width:92%;margin:.1em 0 .4em">The HLS production team will manage the Rust port and continue structural and performance work.
     LaSRC is an evolving algorithm, and scientific change will continue to be driven by the GSFC team. Here is the loop we would propose for it.</p>
@@ -756,19 +761,19 @@
 
   <!-- 26 - TAKEAWAYS -->
   <section data-background-color="#0B2545">
-    <p class="kicker" style="color:var(--mint)">Takeaways</p>
-    <h1 style="font-size:1.6em">Same answers,<br>a codebase we can change</h1>
+    <p class="kicker" style="color:var(--mint)">Impact</p>
+    <h1 style="font-size:1.6em">Same output,<br>a codebase we can maintain</h1>
     <div class="grid g3" style="margin-top:.5em">
       <div class="card" style="background:#12345A"><h3 style="color:#fff"><span class="chip" style="background:var(--mint)">1</span>The gap was structural</h3>
-        <p style="color:var(--ice)">Science code and production code answer to different requirements. Naming that honestly is what made the case for the port, without making it a case against anyone.</p></div>
+        <p style="color:var(--ice)">Science code and production code address different requirements. They need to treated differently.</p></div>
       <div class="card" style="background:#12345A"><h3 style="color:#fff"><span class="chip" style="background:var(--mint)">2</span>Agents need ground truth</h3>
-        <p style="color:var(--ice)">A five to six month port compressed into weeks, but only because a reference output and an agreed threshold made every claim checkable.</p></div>
+        <p style="color:var(--ice)">We compressed a 5-6 month effort into weeks,
+        but only because we have a robust, automated validation suite and well defined thereshold targets</p></div>
       <div class="card" style="background:#12345A"><h3 style="color:#fff"><span class="chip" style="background:var(--mint)">3</span>Validation is the durable asset</h3>
-        <p style="color:var(--ice)">The port is this year's result. The suite is what makes every future algorithmic change safe to accept, whoever proposes it.</p></div>
+        <p style="color:var(--ice)">The port is the immediate return on
+        investment. The validation suite is what makes every future algorithmic
+        change safe to review and accept.</p></div>
     </div>
-    <p style="color:var(--ice);font-size:.58em;margin-top:.7em">Next: <strong style="color:#fff">GDAS auxiliary data</strong> this PI, and a specification driven loop with GSFC</p>
-    <p style="color:#9DB8CC;font-style:italic;font-size:.46em;margin-top:.5em">Validation suite by Trang Vo and Madhu Sridhar. Port refinement by Chris Holden.
-    Algorithmic direction from Dr. Vermote and the GSFC team.</p>
     <aside class="notes">To close, three things. First, the gap we were fighting was structural, not anybody's fault. Science code and production code answer to genuinely different requirements, and being precise about that is what let us make the case for this work without making it a case against the people who wrote the original. Second, agents need ground truth. We compressed a five to six month port into weeks, and that is a real result, but it happened only because we had a reference output to measure against and a threshold agreed in advance with the science team. Without those two things we would have generated a great deal of Rust and learned nothing. Third, and this is the one I would leave you with, the port is this year's result but the validation suite is the durable asset. It is what makes every future algorithmic change safe to accept, whoever proposes it, and it is what turns the collaboration model on the previous slide from a hope into a process. Next up is GDAS auxiliary data in this PI, and the specification driven loop with GSFC, which I would really like to talk about. Thank you, and thanks especially to Trang, Madhu and Chris, whose work this mostly is. Happy to take questions.</aside>
   </section>
 
