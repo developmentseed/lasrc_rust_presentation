@@ -68,7 +68,7 @@ To achieve this vision we proposed the following steps.
 
 
 ###  The arrival of a robot army 
-My initial estimate for building and testing this Rust LaSRC port was 3-4 months
+My initial estimate for building and testing this Rust LaSRC port was 5-6 months
 of 1 FTE effort.  Given the size of our production team and the continuous
 demands of operating a production system while piloting other SNWG solutions it
 was difficult to prioritize the time to tackle this.
@@ -87,3 +87,25 @@ LaSRC codebase as closely as possible.  By continually comparing the agentic
 code's output against a reference ESPA LaSRC granule output we were able to make
 adjustments and refactor portions of the code the output was within the sensor's
 noise floor threshold.
+
+### A robust validation suite
+Since the HLS project's start, the production team has been requesting a large
+scale, automated validation suite from the science team.  This would allow us to
+safely incorporate algorithmic code changes while assessing the effects of these
+changes across a wide representative set of targets.
+
+In addition, 
+### Humans in the loop
+This initial round of AI assisted development provided a strong foundation.
+The results on our initial test granules demonstrated good agreement, but when
+we executed automated testing against the full suite of test granules we
+discovered a host of bugs.  Chris Holden started incrementally tackling these
+with a combination of agent driven refactoring and manual review.  There were a
+host of inconsistencies and bugs to address, but working in an agentic loop
+drastically accelerated this process.  To highlight some of the problems that
+were addressed
+
+- The ESPA LaSRC C codebase was very inconsistent with type conversion in many
+  areas.  Our port attempted to faithfully replicate many of these conversions
+  which resulted in residual accumulation differences.
+- 
