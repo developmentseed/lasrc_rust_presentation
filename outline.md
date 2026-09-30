@@ -94,11 +94,27 @@ scale, automated validation suite from the science team.  This would allow us to
 safely incorporate algorithmic code changes while assessing the effects of these
 changes across a wide representative set of targets.
 
-In addition, 
+In addition, enabling resource utilization logging when generating the outputs
+to use in the validation suite allows us to estimate and assess an performance regressions that algorithmic changes might have.
+
+
+Rather than rely on external teams to manage our validation testing, Trang Vo and Madhu Sridhar have been continually building and refining this system.
+For the LaSRC Rust port validation we are using https://github.com/NASA-IMPACT/hls-application/blob/lasrc_validation/notebooks/LaSRC_container_validation.ipynb
+
+This notebook suite compares band outputs from both the ESPA LaSRC C codebase
+and the LaSRC Rust port.  This generates a series of plots and tabular data
+frames to demonstrate the statistical differences between the outputs in a
+repeatable, objective way.
+
+Based on feedback from the science team, we have selected 5 DN as the
+inter-comparison threshold so that we have a well defined target we are working
+to achieve for alignment between the ESPA and Rust LaSRC outputs.
+
 ### Humans in the loop
 This initial round of AI assisted development provided a strong foundation.
-The results on our initial test granules demonstrated good agreement, but when
-we executed automated testing against the full suite of test granules we
+The results on our initial test granules demonstrated good agreement.  But
+thanks to the validation suite, we now have a automated approach to compare a
+larger set of granules. When we executed the suite against the full test granules we
 discovered a host of bugs.  Chris Holden started incrementally tackling these
 with a combination of agent driven refactoring and manual review.  There were a
 host of inconsistencies and bugs to address, but working in an agentic loop
@@ -108,4 +124,58 @@ were addressed
 - The ESPA LaSRC C codebase was very inconsistent with type conversion in many
   areas.  Our port attempted to faithfully replicate many of these conversions
   which resulted in residual accumulation differences.
-- 
+- The Rust port chose a different approach for invalid auxiliary retrievals.  
+  The Rust port had set the transmittance to 0 instead of to the closest non-fill neighbor.
+- The Rust port was arguably more accurate in defining the scene-center geometry by calculating it, while the C version grabbed the SZA from metadata and set VZA and relative azimuth to 0.
+- The Rust port had bi-linearly interpolated to get the scene center pressure/O3/WV, while C did a nearest neighbor.
+
+### Where are we now?
+After working to iteratively address all of the issues we identified in the port
+we've reached the following results
+
+- 100% alignment between the Rust and ESPA C LaSRC outputs (within the 5 DN threshold for) for all of the granules in "golden granules" reference set.
+- The Rust port runs 30% faster with 7% less memory.
+
+In many cases during our initial LLM based porting work, the model chose
+alternative implementations that caused alignment differences.  In many cases
+these alternative implementations were selected because the ESPA LaSRC codebase
+had bugs or inconsistencies.  Now that we've demonstrated inter-comparison
+equivalence we'll be able to individually address these problems.
+
+### What is next?
+Now that we've demonstrated inter-comparison equivalence with the Rust and C
+code we have created a plan on how to prioritize continuing work on the Rust
+port.  In rough order of priority 
+
+- The largest rationale for undertaking this port was to reduce the level of
+  effort for switching to GDAS based auxiliary data to support the HLS
+  low-latency solution.  We'll begin testing and evaluation of this code path in
+  this PI.
+- The structure of the code in the Rust port reflects the original ESPA C
+  structure.  We'll incrementally refactor and restructure the Rust code to
+  improve maintainability and make it easier for other contributors to work on
+  the project. 
+- Performance optimization.  Initially, we've made some targeted performance
+  tweaks within the Rust port but there are likely a large number of additional
+  performance change we can apply to reduce runtime, resource utilization and
+  overall processing costs.
+
+With our new Rust structure, the time for implementing and testing these new
+features and performance improvements is drastically reduced from what would be
+required with the ESPA LaSRC codebase.
+
+### Collaboration
+Going forward, the HLS production team will manage the Rust port.  We will
+continue to work on structural and performance changes.  LaSRC is an evolving
+algorithm and scientific and algorithmic changes will continue to be driven by
+the GSFC team.  Our hope is to use this approach for incorporating new
+algorithmic changes
+
+- Dr. Vermote and the GSFC team can prototype and test these changes within the
+  Fortran environment (or wherever is most convenient for them).
+- They capture proposed changes in a formal specification document which
+  describes the algorithm changes in detail.
+- The HLS production team implements this specification document in the Rust
+  code and uses the validation suite to evaluate the changes and their potential
+  effects on processing outputs.
+
