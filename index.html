@@ -204,60 +204,67 @@
   <section>
     <p class="kicker">Orientation</p>
     <h2>Where LaSRC sits in HLS</h2>
-    <svg class="dgm" viewBox="0 0 1000 330" role="img" aria-label="The HLS processing chain: Landsat and Sentinel Level 1 inputs pass through the ESPA product formatter into LaSRC atmospheric correction, which also consumes MODIS or VIIRS auxiliary data, then into the HLS algorithmic code which produces the L30 and S30 products.">
+    <svg class="dgm" style="max-height:400px;width:auto" viewBox="0 0 1000 370" role="img" aria-label="The HLS processing chain: Landsat and Sentinel Level 1 inputs pass through the ESPA product formatter into LaSRC atmospheric correction, which also consumes auxiliary aerosol, water vapor and ozone data, then into the HLS algorithmic code which produces the L30 and S30 products. Fmask runs as a separate step on the same Level 1 inputs and feeds its cloud and shadow mask into the HLS algorithmic code.">
       <defs>
         <marker id="ah" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse">
           <path d="M0 0 L10 5 L0 10 z" fill="#1C7293"></path>
         </marker>
       </defs>
 
-      <rect class="box" x="8" y="42" width="168" height="60" rx="9"></rect>
-      <text class="bx" x="92" y="68" text-anchor="middle">Landsat 8 / 9</text>
-      <text class="sb" x="92" y="88" text-anchor="middle">Level 1, USGS</text>
+      <rect class="box" x="384" y="16" width="224" height="56" rx="9"></rect>
+      <text class="bx" x="496" y="40" text-anchor="middle" style="font-size:16px">Auxiliary data</text>
+      <text class="sb" x="496" y="60" text-anchor="middle">aerosol, water vapor, ozone</text>
+      <path class="ln" marker-end="url(#ah)" d="M496 72 V98"></path>
 
-      <rect class="box" x="8" y="122" width="168" height="60" rx="9"></rect>
-      <text class="bx" x="92" y="148" text-anchor="middle">Sentinel-2</text>
-      <text class="sb" x="92" y="168" text-anchor="middle">Level 1C, ESA</text>
+      <rect class="box" x="8" y="112" width="168" height="60" rx="9"></rect>
+      <text class="bx" x="92" y="138" text-anchor="middle">Landsat 8 / 9</text>
+      <text class="sb" x="92" y="158" text-anchor="middle">Level 1, USGS</text>
 
-      <path class="ln" marker-end="url(#ah)" d="M176 72 H198 V108 H210"></path>
-      <path class="ln" marker-end="url(#ah)" d="M176 152 H198 V118 H210"></path>
+      <rect class="box" x="8" y="192" width="168" height="60" rx="9"></rect>
+      <text class="bx" x="92" y="218" text-anchor="middle">Sentinel-2</text>
+      <text class="sb" x="92" y="238" text-anchor="middle">Level 1C, ESA</text>
 
-      <rect class="box" x="212" y="46" width="158" height="134" rx="9"></rect>
-      <text class="bx" x="291" y="98" text-anchor="middle">ESPA product</text>
-      <text class="bx" x="291" y="120" text-anchor="middle">formatter</text>
-      <text class="sb" x="291" y="144" text-anchor="middle">common interchange</text>
-      <text class="sb" x="291" y="161" text-anchor="middle">format</text>
+      <path class="ln" marker-end="url(#ah)" d="M176 142 H198 V178 H210"></path>
+      <path class="ln" marker-end="url(#ah)" d="M176 222 H198 V188 H210"></path>
 
-      <path class="ln" marker-end="url(#ah)" d="M370 113 H404"></path>
+      <rect class="box" x="212" y="116" width="158" height="134" rx="9"></rect>
+      <text class="bx" x="291" y="168" text-anchor="middle">ESPA product</text>
+      <text class="bx" x="291" y="190" text-anchor="middle">formatter</text>
+      <text class="sb" x="291" y="214" text-anchor="middle">common interchange</text>
+      <text class="sb" x="291" y="231" text-anchor="middle">format</text>
 
-      <rect class="hot" x="406" y="30" width="180" height="166" rx="11"></rect>
-      <text class="hotlbl" x="496" y="96" text-anchor="middle">LaSRC</text>
-      <text class="sb" x="496" y="122" text-anchor="middle">atmospheric</text>
-      <text class="sb" x="496" y="139" text-anchor="middle">correction</text>
-      <text class="sb" x="496" y="166" text-anchor="middle" style="fill:#1C7293;font-weight:700">C, USGS / ESPA</text>
+      <path class="ln" marker-end="url(#ah)" d="M370 183 H404"></path>
 
-      <rect class="box" x="384" y="248" width="224" height="62" rx="9"></rect>
-      <text class="bx" x="496" y="273" text-anchor="middle" style="font-size:16px">Auxiliary data</text>
-      <text class="sb" x="496" y="293" text-anchor="middle">aerosol, water vapor, ozone</text>
-      <path class="ln" marker-end="url(#ah)" d="M496 248 V200"></path>
+      <rect class="hot" x="406" y="100" width="180" height="166" rx="11"></rect>
+      <text class="hotlbl" x="496" y="166" text-anchor="middle">LaSRC</text>
+      <text class="sb" x="496" y="192" text-anchor="middle">atmospheric</text>
+      <text class="sb" x="496" y="209" text-anchor="middle">correction</text>
+      <text class="sb" x="496" y="236" text-anchor="middle" style="fill:#1C7293;font-weight:700">C, USGS / ESPA</text>
 
-      <path class="ln" marker-end="url(#ah)" d="M586 113 H618"></path>
+      <path class="ln" marker-end="url(#ah)" d="M586 183 H618"></path>
 
-      <rect class="box" x="620" y="46" width="158" height="134" rx="9"></rect>
-      <text class="bx" x="699" y="98" text-anchor="middle">HLS algorithmic</text>
-      <text class="bx" x="699" y="120" text-anchor="middle">code</text>
-      <text class="sb" x="699" y="144" text-anchor="middle">BRDF, bandpass,</text>
-      <text class="sb" x="699" y="161" text-anchor="middle">tiling</text>
+      <rect class="box" x="620" y="116" width="158" height="134" rx="9"></rect>
+      <text class="bx" x="699" y="168" text-anchor="middle">HLS algorithmic</text>
+      <text class="bx" x="699" y="190" text-anchor="middle">code</text>
+      <text class="sb" x="699" y="214" text-anchor="middle">BRDF, bandpass,</text>
+      <text class="sb" x="699" y="231" text-anchor="middle">tiling</text>
 
-      <path class="ln" marker-end="url(#ah)" d="M778 113 H812"></path>
+      <path class="ln" marker-end="url(#ah)" d="M778 183 H812"></path>
 
-      <rect class="box" x="814" y="58" width="150" height="50" rx="9"></rect>
-      <text class="bx" x="889" y="89" text-anchor="middle">HLS L30</text>
-      <rect class="box" x="814" y="120" width="150" height="50" rx="9"></rect>
-      <text class="bx" x="889" y="151" text-anchor="middle">HLS S30</text>
+      <rect class="box" x="814" y="128" width="150" height="50" rx="9"></rect>
+      <text class="bx" x="889" y="159" text-anchor="middle">HLS L30</text>
+      <rect class="box" x="814" y="190" width="150" height="50" rx="9"></rect>
+      <text class="bx" x="889" y="221" text-anchor="middle">HLS S30</text>
+
+      <path class="ln" marker-end="url(#ah)" d="M198 178 V330 H210"></path>
+      <rect class="box" x="212" y="300" width="158" height="60" rx="9"></rect>
+      <text class="bx" x="291" y="326" text-anchor="middle">Fmask</text>
+      <text class="sb" x="291" y="346" text-anchor="middle" style="font-size:12px">cloud and shadow mask</text>
+      <path class="ln" marker-end="url(#ah)" d="M370 330 H699 V252"></path>
     </svg>
-    <div class="band" style="margin-top:.35em">Two of the four boxes in this chain are maintained outside our team, and <b>LaSRC is the scientific heart of the product</b>.</div>
-    <aside class="notes">Quick orientation so the rest of the talk makes sense. HLS takes Landsat Level 1 from USGS and Sentinel-2 Level 1C from ESA. Those two formats have nothing in common, so the first thing that happens is the ESPA product formatter converts both into a common interchange format. That feeds LaSRC, which is the atmospheric correction step: it takes top of atmosphere reflectance and produces surface reflectance, using auxiliary data for aerosol, water vapor and ozone. Then our own HLS algorithmic code does BRDF normalisation, bandpass adjustment and tiling, and out come L30 and S30. The thing I want you to take from this slide is the box in the middle. LaSRC is the scientific heart of HLS. It is also, along with the product formatter, code that is maintained outside our team, in C, by USGS ESPA. Everything I am about to say follows from that one fact.</aside>
+    <div class="band" style="margin-top:.35em">The product formatter, LaSRC and
+      FMask are maintained outside our team. <b>LaSRC is the scientific heart of the product</b>.</div>
+    <aside class="notes">Quick orientation so the rest of the talk makes sense. HLS takes Landsat Level 1 from USGS and Sentinel-2 Level 1C from ESA. Those two formats have nothing in common, so the first thing that happens is the ESPA product formatter converts both into a common interchange format. That feeds LaSRC, which is the atmospheric correction step: it takes top of atmosphere reflectance and produces surface reflectance, using auxiliary data for aerosol, water vapor and ozone. Running alongside all of that, on the same Level 1 inputs, is Fmask, which is a separate step producing the cloud and shadow mask. It does not pass through LaSRC at all, it feeds straight into the HLS algorithmic code. Then our own HLS algorithmic code does BRDF normalisation, bandpass adjustment and tiling, combines in that mask, and out come L30 and S30. The thing I want you to take from this slide is the box in the middle. LaSRC is the scientific heart of HLS. It is also, along with the product formatter, code that is maintained outside our team, in C, by USGS ESPA. Everything I am about to say follows from that one fact.</aside>
   </section>
 
   <!-- 3 - WHY WE CHOSE ESPA -->
@@ -274,7 +281,7 @@
       <div class="card"><h3><span class="chip teal">3</span>Auxiliary data tooling</h3>
         <p>Utilities for obtaining and generating the water vapor and aerosol datasets LaSRC depends on.</p></div>
     </div>
-    <div class="band" style="margin-top:.55em">At the time this was the best choice <b> But now, HLS is a large scale production data system.</b></div>
+    <div class="band" style="margin-top:.55em">At the time this was the best choice.</div>
     <aside class="notes">I want to be careful about how I frame the next few slides, so let me start here. When we kicked off HLS global processing in 2019, we looked at the available LaSRC implementations and picked the one that was simplest to compile, containerise and maintain. That was the USGS ESPA implementation, and it was clearly the right choice. It did not just give us the algorithm. It gave us a working build recipe, which anyone who has tried to compile a scientific C library from scratch will tell you is worth a great deal on its own. It gave us the product formatter that converts Landsat and Sentinel into a single interchange format. And it gave us the tooling for fetching and generating the auxiliary water vapor and aerosol data. So nothing in this talk is an argument that we chose wrong. We chose right. What changed over six years is that HLS stopped being a processing effort and became a production data system with operational commitments, and the requirements that come with that are different in kind.</aside>
   </section>
 
@@ -314,11 +321,11 @@
     <h2>The ESPA LaSRC C Codebase</h2>
     <div class="grid g2" style="margin-top:.3em">
       <div class="card"><h3><span class="chip coral">A</span>One maintainer</h3>
-        <p>A single engineer mainly responsible for the entire codebase. That is a normal way to run a research library and an uncomfortable way to underpin an operational product.</p></div>
+        <p>A single engineer mainly responsible for the entire codebase. This is normal for science code but is a risk factor for an operational product.</p></div>
       <div class="card"><h3><span class="chip coral">B</span>Stuck at Python 3.8</h3>
-        <p>The Python wrappers around the C functions use older patterns that will not run on Python newer than 3.8, which constrains everything downstream of them.</p></div>
+        <p>The Python wrappers around the C functions use older patterns that need converstion to run on Python newer than 3.8, which constrains everything downstream of them.</p></div>
       <div class="card"><h3><span class="chip coral">C</span>Deprecated build dependencies</h3>
-        <p>Compilation relies on several dependencies that are no longer maintained, so the build gets harder to reproduce every year.</p></div>
+        <p>Compilation relies on several dependencies that are no longer actively maintained, so the build gets harder to reproduce every year.</p></div>
       <div class="card"><h3><span class="chip coral">D</span>No public repository or licence</h3>
         <p>Nowhere to file an issue, track a fix, or contribute back. Our questions and our patches have no route in.</p></div>
     </div>
@@ -332,14 +339,16 @@
     <h2>Inside the algorithm</h2>
     <div class="rowcards" style="margin-top:.3em">
       <div class="card"><h3><span class="chip amber">A</span>Aerosol retrieval heuristics are expensive</h3>
-        <p>The heuristics used when aerosol retrieval fails carry significant compute cost, and compute cost at global scale is dollars and latency.</p></div>
+        <p>The heuristics used when aerosol retrieval fails carry significant
+        compute cost and can have a big budget effect in the aggregate.</p></div>
       <div class="card"><h3><span class="chip amber">B</span>The product formatter is heavily hardcoded</h3>
         <p>Every time USGS or ESA changes a distribution format, the conversion
-        code needs substantial updates resulting in long turnaround and testing
+        code needs substantial updates, resulting in long turnaround and testing
         times for small changes.</p></div>
       <div class="card"><h3><span class="chip amber">C</span>VIIRS and MODIS are separate, non-interoperating code paths</h3>
-        <p>A single version of the codebase cannot use different sources of auxiliary data. The two paths are discrete, which is precisely the flexibility the low latency work needs.</p></div>
-      <div class="card"><h3><span class="chip amber">D</span>Our own code reaches into LaSRC internals</h3>
+        <p>A single version of the codebase cannot simultaneously use different sources of auxiliary data. The two paths are discrete, which is precisely the flexibility the low latency work needs.</p></div>
+      <div class="card"><h3><span class="chip amber">D</span>HLS science code
+          relies on LaSRC internals</h3>
         <p>The HLS algorithmic C code makes assumptions about the internal HDF structure of LaSRC results, so a LaSRC output change forces a refactor on our side too.</p></div>
     </div>
     <aside class="notes">Now the algorithm itself, and these matter more because they touch the science and the cost. First, the heuristics used when aerosol retrieval fails carry significant compute cost. At the scale we run, compute cost is real money and real latency, so this is not a tuning detail. Second, the product formatter is heavily hardcoded, so every time USGS or ESA changes something about how they distribute data, that code needs substantial updates. We absorb that churn, and we absorb it on their schedule rather than ours. Third, and this is the one that eventually forced the issue, a single version of the codebase cannot use different sources of auxiliary data. Processing with VIIRS derived auxiliary data and processing with MODIS derived auxiliary data are discrete code paths that do not interoperate. Hold that thought, because it comes back. And fourth, this one is our own doing: the HLS algorithmic C code makes assumptions about the internal HDF structure of the LaSRC output. So when LaSRC output changes, we do not just update a dependency, we refactor our own code to match.</aside>
@@ -348,7 +357,7 @@
   <!-- 7 - WHAT WE NEED -->
   <section>
     <p class="kicker">The requirement</p>
-    <h2>What a production system needs to promise</h2>
+    <h2>What makes a system "production" grade?</h2>
     <ol class="steps">
       <li><strong>Automated fidelity testing.</strong> Every change validated against a suite of test granules, proving no reflectance or performance regression.</li>
       <li><strong>Automated unit testing.</strong> Structural and semantic correctness checked on every commit, not inferred from the output looking reasonable.</li>
@@ -356,7 +365,9 @@
       <li><strong>Automated build and deploy.</strong> Any update compiles and deploys with minimal change to our continuous integration pipelines.</li>
       <li><strong>Pinned, tagged releases.</strong> Production deployments reference a specific version, and that version is recorded in product metadata.</li>
     </ol>
-    <div class="band" style="margin-top:.45em">And underneath all five: a codebase <b>flexible enough to absorb upstream format changes</b>, balancing fidelity against compute cost, in a language new engineers will want to work in.</div>
+    <div class="band" style="margin-top:.45em">And underneath all five: a
+      codebase <b>flexible enough to incorporate upstream format changes and new
+      features</b>, balancing fidelity against compute cost, in a language new engineers will want to work in.</div>
     <aside class="notes">So if I turn all of that around into what we actually need, it comes to five promises. One, automated fidelity testing: every change validated against a suite of test granules so that we can demonstrate, not assert, that there has been no reflectance or performance regression. Two, automated unit testing, so that structural and semantic correctness is checked on every commit rather than inferred from the output looking about right. Three, change that arrives isolated and reviewable, as a pull request we can selectively test, apply, and roll back if it turns out to be wrong. Four, automated build and deploy, so that an update does not mean a week of pipeline surgery. Five, pinned and tagged releases, so a production deployment points at a specific version and that version appears in the product metadata, which matters enormously when someone asks two years later exactly what produced a given granule. And underneath all five, we need a codebase flexible enough to absorb upstream format changes cheaply, that balances output fidelity against compute cost, and that is written in something a new engineer joining the project will actually want to work on. That last one sounds soft. It is not. It determines who we can hire and how fast they become useful.</aside>
   </section>
 
@@ -364,7 +375,7 @@
 
   <!-- 8 - GSFC AND SNWG -->
   <section>
-    <p class="kicker">A push towards modernization</p>
+    <p class="kicker">HLS Low Latency Changes</p>
     <h2>Technical coordination with GSFC</h2>
     <p style="font-size:.64em;max-width:92%;margin:.1em 0 .5em">SNWG has funded <strong>Dr. Vermote and his team</strong> to advance the algorithm on two fronts, and both of them land in the codebase I have just described.</p>
     <div class="cols">
@@ -385,18 +396,21 @@
   <section>
     <p class="kicker">Our vision</p>
     <h2>A community driven atmospheric correction model</h2>
-    <p style="font-size:.6em;max-width:92%;margin:.1em 0 .45em">Even with every fix above, we would still depend on a legacy codebase maintained by a very small team. What we actually want is a library with
-    <strong>a large community of maintainers</strong>, led by a consortium of organisations, that can react quickly to upstream change from ESA and NASA.</p>
+    <p style="font-size:.6em;max-width:92%;margin:.1em 0 .45em">Even with these
+    proposed updated, we would still depend on a legacy codebase maintained by a very small team. What we actually want is a library with
+    <strong>a larger community of maintainers</strong>, led by a consortium of organisations, that can react quickly to upstream change from ESA and NASA.</p>
     <div class="grid g3">
       <div class="card"><h3><span class="chip rust">1</span>A Rust port</h3>
         <p>Rewrite the ESPA LaSRC C library in Rust: equal or better numerical performance, with language level safety and maintainability.</p></div>
       <div class="card"><h3><span class="chip teal">2</span>A reference image archive</h3>
         <p>A curated set of Landsat and Sentinel granules for reflectance target assessment and for memory and CPU profiling over time.</p></div>
       <div class="card"><h3><span class="chip green">3</span>Automated comparison notebooks</h3>
-        <p>A repository of fully automated notebooks that compare and analyse LaSRC outputs, so inter-comparison testing is a pipeline step, not a person.</p></div>
+        <p>A repository of fully automated notebooks that compare and analyze
+        LaSRC outputs, so inter-comparison testing is a pipeline step, not a
+      person assessing outputs.</p></div>
     </div>
     <div class="band" style="margin-top:.5em">The goal is not a better fork. It
-      is <b>a codebase other organisations want to both use and contribute to</b>.</div>
+      is <b>a codebase other organizations want to both use and contribute to</b>.</div>
     <aside class="notes">Here is what we actually want, and I want to be ambitious about it for a second. Suppose we fixed every item on the friction list. We would still be depending on a legacy codebase maintained principally by a very small team of developers. That is the structural problem, and patching around it does not solve it. What we would prefer is a library with a large community of maintainers, led by a consortium of organisations, that provides continuous improvement and can react quickly when ESA or NASA change something upstream. To get there we proposed three things. First, a Rust port of the existing ESPA LaSRC C library. Second, an archive of reference Landsat and Sentinel images, used both for reflectance target performance assessment and for memory and CPU profiling, so that we can track improvement and regression over time rather than arguing about it. Third, a repository of fully automated notebooks for comparing and analysing LaSRC outputs, so that inter-comparison testing is something a pipeline does rather than something a person remembers to do. The goal in all three is not a better maintained fork. It is a codebase that other organisations actively want to contribute to.</aside>
   </section>
 
@@ -411,7 +425,7 @@
       <div class="col" style="flex:.66">
         <div class="rowcards">
           <div class="card"><h3><span class="chip rust">1</span>Numerical performance</h3>
-            <p>Equal, and in our case better, throughput than the C implementation. We were not willing to trade fidelity or speed for ergonomics.</p></div>
+            <p>Equal, and in our case better, throughput than the C implementation.</p></div>
           <div class="card"><h3><span class="chip rust">2</span>Safety at the language level</h3>
             <p>Memory and type safety are enforced by the compiler rather than by reviewer discipline, which is exactly where a long lived scientific codebase tends to erode.</p></div>
           <div class="card"><h3><span class="chip rust">3</span>A larger pool of future maintainers</h3>
@@ -433,17 +447,18 @@
     <div class="statgrid" style="grid-template-columns:1fr 1.6fr;margin-top:.3em">
       <div class="cell" style="display:flex;flex-direction:column;justify-content:center">
         <span class="n warm" style="font-size:2.4em">5 to 6</span>
-        <p class="k" style="font-size:.55em">months of <strong>1 FTE</strong>, my initial estimate for building and testing the port</p>
+        <p class="k" style="font-size:.55em">months of <strong>1 FTE</strong>
+        was my initial estimate for building and testing a Rust port</p>
       </div>
       <div class="cell" style="background:#FBEEEC;display:flex;flex-direction:column;justify-content:center">
-        <p style="font-size:.6em;margin:0;line-height:1.4">Against a team of our size, running a production system while piloting other SNWG solutions,
+        <p style="font-size:.6em;margin:0;line-height:1.4">For a team of our size, running a production system while piloting other SNWG solutions,
         that was <strong>not a block of time we could prioritize.</strong></p>
       </div>
     </div>
     <div class="card" style="margin-top:.5em;background:#ECF6F2">
       <h3 style="color:#1E6B5C;font-size:.9em">The HLS low-latency solution changed this prioritization</h3>
       <p style="font-size:.6em">As we scoped the ESPA changes needed to add alternative auxiliary data support for the low latency
-      requirement, we realised it might be <strong>less work to add that support in a new, simpler Rust codebase</strong> than to retrofit it into the existing one.</p>
+      requirement, we realized it might be <strong>less work to add that support in a new, simpler Rust codebase</strong> than to retrofit it into the existing one.</p>
     </div>
     <aside class="notes">So if the case is that clear, why had we not done it? Because I estimated building and testing this port at five to six months of one full time engineer. Set that against a team of our size, which is simultaneously operating a production system and piloting other SNWG solutions, and it was simply not a block of time we could prioritise. It was a good idea that sat on the list, which is where good ideas of that size usually stay. What changed was the GDAS work. As we scoped out the ESPA changes we would need to make to add alternative auxiliary data support for the low latency solution requirements, we came to the conclusion that it might genuinely be less effort to add that support in a new, simpler Rust codebase than to retrofit it into the existing one. That reframes the whole thing. The port stops being a large speculative investment and starts being a plausible route to a requirement we have to deliver anyway.</aside>
   </section>
@@ -453,19 +468,20 @@
   <!-- 12 - THE ROBOT ARMY -->
   <section>
     <p class="kicker">Timing</p>
-    <h2>The arrival of a robot army</h2>
+    <h2>Agents to the rescue</h2>
     <p style="font-size:.64em;max-width:92%;margin:.1em 0 .5em">This
-    prioritization coincided with a steep rise in the coding capability of large language models, and with the adoption of
+    prioritization coincided with a steep rise in the coding capability of large language models and the adoption of
     <strong>multi-agent harnesses</strong> that decompose an engineering task into work streams which can run in parallel.</p>
     <div class="grid g3">
       <div class="card"><h3><span class="chip navy">1</span>Parallel work streams</h3>
-        <p>Several agent sessions working concurrently on different modules of the port rather than one engineer working sequentially.</p></div>
+        <p>Several agent sessions working concurrently on different portions of the port rather than one engineer working sequentially.</p></div>
       <div class="card"><h3><span class="chip deep">2</span>A reference to aim at</h3>
         <p>The model was initially prompted to replicate the ESPA LaSRC codebase as closely as possible, with the C source as the specification.</p></div>
       <div class="card"><h3><span class="chip teal">3</span>An objective stopping condition</h3>
         <p>Output compared continuously against a reference ESPA LaSRC granule, refactoring until the delta was less than the sensor noise floor.</p></div>
     </div>
-    <div class="band" style="margin-top:.5em">The critical ingredient was not the model. It was <b>having a reference output to measure against</b>.</div>
+    <div class="band" style="margin-top:.5em">The critical ingredient was not
+      the model. It was <b>having a reference output for the model to measure against</b>.</div>
     <aside class="notes">And this is where the timing gets lucky, because the moment we reframed the port as the cheaper route to GDAS support happened to coincide with a very steep rise in the coding capability of large language models, and with the adoption of multi-agent harnesses that let you decompose an engineering task into work streams that run in parallel. So what we actually did was run several Claude Code sessions concurrently, each working on different modules of the port, rather than one engineer working through it sequentially. The agents were asked to replicate the ESPA LaSRC codebase as closely as possible, with the C source acting as the specification. And crucially there was an objective stopping condition: we continually compared the generated code's output against a reference ESPA LaSRC granule output, and kept adjusting and refactoring until the difference sat inside the sensor's noise floor threshold. I want to underline the third point, because I think it is the transferable lesson from this whole exercise. The critical ingredient was not the model. It was having a reference output to measure against. Without that, you have generated a large amount of plausible Rust and no way to know anything about it.</aside>
   </section>
 
@@ -514,7 +530,8 @@
       <path class="ln" marker-end="url(#ah2)" d="M738 143 V222 H311 V130"></path>
       <text class="cap" x="524" y="212" text-anchor="middle" style="font-weight:700">no: adjust, refactor, run again</text>
     </svg>
-    <div class="band" style="margin-top:.35em">Agents supplied the throughput. <b>The reference output supplied the ground truth.</b> Neither works without the other.</div>
+    <div class="band" style="margin-top:.35em">Agents supplied the code. <b>The
+        reference output supplied the source of truth.</b> Neither works without the other.</div>
     <aside class="notes">This is the loop, and it is deliberately simple. An agent ports a module, using the C source as the specification. The result gets run on a reference granule. The output is differenced against the ESPA C output for that same granule. If the difference sits inside the sensor noise floor, the module is accepted. If it does not, we go back, adjust, refactor and run it again. That is the whole method. The reason I am showing it as a diagram rather than describing it is that I think the shape matters more than the detail. This is a closed loop with an objective termination condition, and that is what makes agent generated code tractable at this scale. The agents supplied throughput, which is genuinely what made a five to six month estimate collapse. The reference output supplied ground truth. Neither half works without the other, and I would be very cautious about anyone proposing the first half without the second.</aside>
   </section>
 
@@ -529,7 +546,7 @@
           <li>A complete Rust implementation of the algorithm</li>
           <li>Drastically improved Python wrapper and CLI code</li>
           <li>Good agreement on the initial test granules</li>
-          <li>Months of estimated effort compressed into weeks</li>
+          <li>Months of estimated effort compressed into a few days</li>
         </ul>
       </div>
       <div class="arrowmid">&#8594;</div>
@@ -553,7 +570,7 @@
     <h2>The testing suite we have always needed</h2>
     <p style="font-size:.64em;max-width:92%;margin:.1em 0 .5em">Since the start
     of the HLS project, the production team has asked for a large scale automated validation suite, so that algorithmic
-    change could be validated safely while measuring its effect across a wide, representative set of targets.</p>
+    changes could be validated safely while measuring the effect across a wide, representative set of targets.</p>
     <div class="cols">
       <div class="col"><div class="card"><h3><span class="chip teal">1</span>Built in house</h3>
         <p>Rather than depend on an external team for our validation testing, <strong>Trang Vo and Madhu Sridhar</strong> have been building and refining this system continuously.</p></div></div>
@@ -574,7 +591,7 @@
     </div>
     <ol class="steps" style="margin-top:.5em">
       <li><strong>Discover and pair.</strong> List rasters under both output prefixes, detect stage, keep only symmetric pairs so nothing is compared against a gap.</li>
-      <li><strong>Compare per pixel.</strong> Decode reflectance for both versions, compute the difference field, and summarise it.</li>
+      <li><strong>Compare per pixel.</strong> Decode reflectance for both versions, compute the difference field, and summarize it.</li>
       <li><strong>Decide against a threshold.</strong> A band passes when the absolute mean reflectance difference is within the configured threshold for that band.</li>
     </ol>
     <aside class="notes">So what does the suite actually do. It compares the outputs of the old and new LaSRC containers, and it does so at two stages: the immediate LaSRC outputs, the surface reflectance band files, and the final HLS outputs, the L30 and S30 products. That second stage matters because it tells us whether a difference at the LaSRC step survives into the delivered product or gets absorbed downstream. The current reference set is ten golden granules of Landsat 8, chosen to span a representative range of targets, seven bands each from ultrablue through to red edge three, which comes to 432 rasters and about 46 gigabytes on each side of the comparison. The workflow is three steps. First, discover and pair: list the rasters under both prefixes, detect which stage each belongs to, and keep only the symmetric pairs, so we never compare a file against a gap and call it a difference. Second, compare per pixel: decode reflectance for both versions, compute the difference field, summarise it. Third, decide against a threshold: a band passes when the absolute mean reflectance difference between the two outputs is within the configured threshold for that band. That last step is what turns a pile of plots into a pass or fail that a pipeline can act on.</aside>
@@ -598,12 +615,14 @@
   <section>
     <p class="kicker">Reality</p>
     <h2>Humans in the loop</h2>
-    <p style="font-size:.66em;max-width:92%;margin:.1em 0 .5em">When we ran the Rust code and validation suite against the full set of test granules rather than the initial few, we
+    <p style="font-size:.66em;max-width:92%;margin:.1em 0 .5em">When we ran the Rust code and validation suite against the full set of test granules, we
     <strong>discovered a host of bugs</strong>.</p>
     <div class="cols">
       <div class="col"><div class="card" style="background:#FBEEEC"><h3 style="color:#9B2F23"><span class="chip coral">&#9888;</span>The foundation had gaps</h3>
-        <p>Agreement on a handful of granules had concealed a range of inconsistencies that only appeared across a wider set of targets.</p></div></div>
-      <div class="col"><div class="card" style="background:#ECF6F2"><h3 style="color:#1E6B5C"><span class="chip green">&#10003;</span>The loop closed them fast</h3>
+        <p>Agreement on a handful of granules had concealed a range of
+        inconsistencies that only appeared across a wider set of granules and targets.</p></div></div>
+      <div class="col"><div class="card" style="background:#ECF6F2"><h3
+            style="color:#1E6B5C"><span class="chip green">&#10003;</span>The review loop</h3>
         <p><strong>Chris Holden</strong> tackled these incrementally, combining agent driven refactoring with manual review. There was a lot to address, but working in an agentic loop accelerated it dramatically.</p></div></div>
     </div>
     <div class="band" style="margin-top:.5em">While LLM usage accelerated this process it is only as capable as the engineer / scientist working with it.</div>
@@ -613,17 +632,17 @@
   <!-- 19 - FOUR CLASSES OF BUG -->
   <section>
     <p class="kicker">Bugs / Inconsitencies</p>
-    <h2>Four classes of difference</h2>
+    <h2>Four main classes of issues</h2>
     <div class="rowcards" style="margin-top:.25em">
       <div class="card"><h3><span class="chip coral">1</span>Type conversion, faithfully replicated</h3>
         <p>The ESPA C codebase is inconsistent about type conversion in a number
         of places. The model replicated many of those conversions faithfully, which produced <strong>residual accumulation differences</strong>.</p></div>
       <div class="card"><h3><span class="chip amber">2</span>Invalid auxiliary retrieval</h3>
-        <p>Where auxiliary retrieval fails, the model set transmittance to <strong>zero</strong>. The C implementation sets it to the <strong>closest non-fill neighbour</strong>.</p></div>
-      <div class="card"><h3><span class="chip teal">3</span>Scene centre geometry</h3>
-        <p>The model chose to <strong>calculate</strong> the scene centre geometry. The C version takes solar zenith from metadata and sets view zenith and relative azimuth to zero.</p></div>
-      <div class="card"><h3><span class="chip deep">4</span>Scene centre interpolation</h3>
-        <p>For centre pressure, ozone and water vapor the model chose <strong>bilinear interpolation</strong> where C used <strong>nearest neighbour</strong>.</p></div>
+        <p>Where auxiliary retrieval fails, the model decieded to set transmittance to <strong>zero</strong>. The C implementation sets it to the <strong>closest non-fill neighbour</strong>.</p></div>
+      <div class="card"><h3><span class="chip teal">3</span>Scene center geometry</h3>
+        <p>The model chose to <strong>calculate</strong> the scene center geometry. The C version takes solar zenith from metadata and sets view zenith and relative azimuth to zero.</p></div>
+      <div class="card"><h3><span class="chip deep">4</span>Scene center interpolation</h3>
+        <p>For center pressure, ozone and water vapor the model chose <strong>bilinear interpolation</strong> where C used <strong>nearest neighbour</strong>.</p></div>
     </div>
     <aside class="notes">Let me give you four concrete examples, because I think they are more interesting than the headline. First, type conversion. The ESPA LaSRC C codebase is very inconsistent about type conversion in a number of places. Our port attempted to replicate many of those conversions faithfully, and the result was residual accumulation differences. That is a subtle failure mode worth naming: the port was wrong precisely because it was being faithful. Second, invalid auxiliary retrieval. Where retrieval fails, the Rust port set transmittance to zero. The C implementation sets it to the closest non-fill neighbour. Those diverge exactly over the pixels where the atmosphere is hardest to characterise, which is to say the pixels people care about. Third, scene centre geometry. The Rust port calculated the geometry. The C version takes the solar zenith angle from metadata and sets view zenith and relative azimuth to zero. Fourth, scene centre interpolation: the Rust port bilinearly interpolated to get centre pressure, ozone and water vapor, where C does nearest neighbour. Now, look at three and four again, because they are a different kind of thing from one and two, and that is the next slide.</aside>
   </section>
