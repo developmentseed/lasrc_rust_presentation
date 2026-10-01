@@ -174,8 +174,13 @@
   .todo.slim{ padding:.45em .7em; }
   .todo.slim p{ font-size:.5em; }
 
+  /* card carrying the concrete, already-underway item on a dark slide */
+  .card.lead{ border-left:4px solid var(--mint); }
+
   /* rust logo mark */
-  .rustmark{ height:2.6em; width:auto; box-shadow:none; display:block; margin:.2em auto .3em; }
+  /* keep intrinsic aspect ratio inside a flex column, which would otherwise stretch it to full width */
+  .rustmark{ height:2.6em; width:auto; flex:none; align-self:center; object-fit:contain;
+    box-shadow:none; display:block; margin:.2em auto .3em; }
 </style>
 </head>
 <body>
@@ -415,7 +420,9 @@
         </div>
       </div>
     </div>
-    <div class="band" style="margin-top:.45em">The third reason is the one that actually drove the decision. <b>Community is a technical requirement</b>, not a nice to have.</div>
+    <div class="band" style="margin-top:.45em">The third reason is the one that
+      actually drove the decision. <b>Community collaboration is a core
+        goal</b> for any healthy software project.</div>
     <aside class="notes">Why Rust specifically, because this is a fair question and the obvious alternative answers are modern C plus plus, or Fortran, or leaving it alone. Three reasons. First, numerical performance holds. Rust gives equal and in our case better throughput than the C implementation, and we were not willing to trade fidelity or speed for developer ergonomics. Second, safety is enforced by the compiler rather than by reviewer discipline. Memory and type safety in a long lived scientific codebase erode exactly where attention lapses, and having the compiler hold that line is worth a lot over a decade. But the third reason is the one that actually drove the decision, and I want to be honest that it is a sociological argument rather than a technical one. Rust has real and growing momentum in academic and engineering communities. Substantially more people will volunteer their time to a Rust project than will volunteer for a large legacy C codebase. If the goal is a community driven library, then the language choice is a community decision. Community is a technical requirement here, not a nice to have.</aside>
   </section>
 
@@ -774,7 +781,30 @@
         investment. The validation suite is what makes every future algorithmic
         change safe to review and accept.</p></div>
     </div>
-    <aside class="notes">To close, three things. First, the gap we were fighting was structural, not anybody's fault. Science code and production code answer to genuinely different requirements, and being precise about that is what let us make the case for this work without making it a case against the people who wrote the original. Second, agents need ground truth. We compressed a five to six month port into weeks, and that is a real result, but it happened only because we had a reference output to measure against and a threshold agreed in advance with the science team. Without those two things we would have generated a great deal of Rust and learned nothing. Third, and this is the one I would leave you with, the port is this year's result but the validation suite is the durable asset. It is what makes every future algorithmic change safe to accept, whoever proposes it, and it is what turns the collaboration model on the previous slide from a hope into a process. Next up is GDAS auxiliary data in this PI, and the specification driven loop with GSFC, which I would really like to talk about. Thank you, and thanks especially to Trang, Madhu and Chris, whose work this mostly is. Happy to take questions.</aside>
+    <aside class="notes">To close, three things. First, the gap we were fighting was structural, not anybody's fault. Science code and production code answer to genuinely different requirements, and being precise about that is what let us make the case for this work without making it a case against the people who wrote the original. Second, agents need ground truth. We compressed a five to six month port into weeks, and that is a real result, but it happened only because we had a reference output to measure against and a threshold agreed in advance with the science team. Without those two things we would have generated a great deal of Rust and learned nothing. Third, and this is the one I would leave you with, the port is this year's result but the validation suite is the durable asset. It is what makes every future algorithmic change safe to accept, whoever proposes it, and it is what turns the collaboration model on the previous slide from a hope into a process. Next up is GDAS auxiliary data in this PI, and the specification driven loop with GSFC, which I would really like to talk about. Before I stop, there is one more thing I want to put on the table, because it is the honest limit of everything I have shown you.</aside>
+  </section>
+
+  <!-- 27 - FUTURE VALIDATION -->
+  <section data-background-color="#0B2545">
+    <p class="kicker" style="color:var(--mint)">The longer horizon</p>
+    <h2 style="color:#fff">Future validation</h2>
+    <p style="color:var(--ice);font-size:.58em;max-width:92%;margin:.1em 0 .45em">Every comparison in this talk measures the Rust port against
+    <strong style="color:#fff">ESPA LaSRC C output</strong>. That is the correct baseline today. It is not the destination.</p>
+    <div class="grid g2">
+      <div class="card" style="background:#12345A"><h3 style="color:#fff"><span class="chip" style="background:var(--mint)">&#9679;</span>Why C is the right baseline now</h3>
+        <p style="color:var(--ice)">Using the ESPA outputs as our reference target is what gives us
+        <strong style="color:#fff">consistency with every granule already in the archive</strong>. Continuity with what we have already processed and distributed is a real requirement.</p></div>
+      <div class="card" style="background:#12345A"><h3 style="color:#fff"><span class="chip" style="background:var(--coral)">&#9679;</span>What it cannot tell us</h3>
+        <p style="color:var(--ice)">Agreement with another codebase is <strong style="color:#fff">not the same as true physical accuracy</strong>.</p></div>
+    </div>
+    <div class="card lead" style="background:#12345A;margin-top:.5em">
+      <h3 style="color:#fff;font-size:.82em">Already underway</h3>
+      <p style="color:var(--ice)"><strong style="color:#fff">Chris Holden</strong> has done initial work on an automated, repeatable suite based on the
+      <strong style="color:#fff">ACIX-II</strong> exercise aimed at evaluating algorithm performance against a set of <strong style="color:#fff">AERONET</strong> sites.</p>
+    </div>
+    <p style="color:var(--ice);font-size:.56em;margin-top:.55em">Where this should go: new algorithm development evaluated against
+    <strong style="color:#fff">real, measured physical targets</strong>, rather than against alignment with values generated by another codebase.</p>
+    <aside class="notes">So this is the last thing, and it is the caveat on everything I have shown you. Every comparison in this talk measures the Rust port against ESPA LaSRC C output. All of our validation uses that codebase as the baseline. I want to be clear that this is the correct baseline for the work we have just done, and the reason is continuity: using the ESPA outputs as our reference target is what gives us consistency with all of the data already processed into our existing archive. That is a real requirement and not a technicality. Users do not want a discontinuity in the record because we changed implementations. But it is worth saying plainly what that baseline cannot tell us. Agreement with another codebase is not the same thing as accuracy. If we match ESPA exactly, we also match it wherever it is wrong, and no threshold measured against ESPA will ever reveal that. Our eventual goal should be improving surface reflectance fidelity against real, measured physical targets. And there is already work started on this: Chris Holden has done initial work creating an automated, repeatable suite based on the ACIX-II exercise, to evaluate algorithm performance against a set of AERONET sites. That is the right direction, and I think we should consider expanding it, so that new algorithm developments are evaluated against physical measurements rather than against alignment with values generated by another implementation. That is a bigger conversation than this talk, and it is one I would like to have, particularly with the science team, because it changes what we mean by a passing result. Thank you, and thanks especially to Trang, Madhu and Chris, whose work this mostly is. Happy to take questions.</aside>
   </section>
 
 </div>

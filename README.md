@@ -20,7 +20,7 @@ Every slide carries a full presenter script in an `<aside class="notes">`.
 
 ## Structure
 
-26 slides in five acts, targeted at 15 to 20 minutes, driven by [`outline.md`](./outline.md):
+27 slides in five acts, targeted at 15 to 20 minutes, driven by [`outline.md`](./outline.md):
 
 | Slides | Act | |
 |---|---|---|
@@ -28,11 +28,16 @@ Every slide carries a full presenter script in an `<aside class="notes">`.
 | 8 to 11 | Vision and trigger | SNWG funded GSFC work, the community driven atmospheric correction vision, why Rust, and the GDAS requirement that forced the decision |
 | 12 to 14 | The robot army | Multi-agent porting, the compare-against-reference loop, and why the initial port was a foundation rather than a finished result |
 | 15 to 20 | Validation and the humans | The in-house validation suite, what it measures, one comparison in detail, the bugs the full run surfaced, and the cases where the port was arguably more correct than the reference |
-| 21 to 26 | Results and the ask | Equivalence and performance, what is next in priority order, the proposed GSFC collaboration loop, and takeaways |
+| 21 to 27 | Results and the ask | Equivalence and performance, what is next in priority order, the proposed GSFC collaboration loop, takeaways, and the longer horizon for validation |
 
 The argument turns on slide 4 (science code is not production code), slide 13 (the loop),
 and slide 25 (the collaboration proposal). Slide 20 exists on purpose: conceding that the
 port sometimes disagreed with the C reference and was right to is what makes slide 25 land.
+
+Slide 27 is the closing note and carries the sign-off. It states the limit of everything
+before it: all validation in this deck uses ESPA LaSRC C output as the baseline, which buys
+continuity with the existing archive but cannot measure physical accuracy. It points at
+Chris Holden's ACIX-II and AERONET work as the direction of travel.
 
 ## Before presenting
 
