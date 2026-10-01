@@ -322,8 +322,10 @@
     <div class="grid g2" style="margin-top:.3em">
       <div class="card"><h3><span class="chip coral">A</span>One maintainer</h3>
         <p>A single engineer mainly responsible for the entire codebase. This is normal for science code but is a risk factor for an operational product.</p></div>
-      <div class="card"><h3><span class="chip coral">B</span>Stuck at Python 3.8</h3>
-        <p>The Python wrappers around the C functions use older patterns that need converstion to run on Python newer than 3.8, which constrains everything downstream of them.</p></div>
+      <div class="card"><h3><span class="chip coral">B</span>Stuck on legacy
+          Python</h3>
+        <p>The very complex compilation chain provided for the ESPA base
+        container made upgrading Python versions difficult</p></div>
       <div class="card"><h3><span class="chip coral">C</span>Deprecated build dependencies</h3>
         <p>Compilation relies on several dependencies that are no longer actively maintained, so the build gets harder to reproduce every year.</p></div>
       <div class="card"><h3><span class="chip coral">D</span>No public repository or licence</h3>
@@ -424,8 +426,8 @@
       </div>
       <div class="col" style="flex:.66">
         <div class="rowcards">
-          <div class="card"><h3><span class="chip rust">1</span>Numerical performance</h3>
-            <p>Equal, and in our case better, throughput than the C implementation.</p></div>
+          <div class="card"><h3><span class="chip rust">1</span>Easy Python integration</h3>
+            <p>Equal,throughput than the C implementation.</p></div>
           <div class="card"><h3><span class="chip rust">2</span>Safety at the language level</h3>
             <p>Memory and type safety are enforced by the compiler rather than by reviewer discipline, which is exactly where a long lived scientific codebase tends to erode.</p></div>
           <div class="card"><h3><span class="chip rust">3</span>A larger pool of future maintainers</h3>
