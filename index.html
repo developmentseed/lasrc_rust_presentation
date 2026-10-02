@@ -588,15 +588,15 @@
     <p class="kicker">Validation</p>
     <h2>What the suite actually does</h2>
     <div class="statgrid" style="grid-template-columns:repeat(4,1fr);margin-top:.25em">
-      <div class="cell"><span class="n">432</span><p class="k">rasters paired and compared, 45.93 GB per side</p></div>
-      <div class="cell"><span class="n">7</span><p class="k">bands compared per granule, B01 Ultrablue through B07 Red Edge 3</p></div>
+      <div class="cell"><span class="n">353</span><p class="k">granules compared, each at the immediate LaSRC stage and the final HLS stage</p></div>
+      <div class="cell"><span class="n">7</span><p class="k">bands compared per granule, B01 Coastal Aerosol through B07 SWIR2</p></div>
     </div>
     <ol class="steps" style="margin-top:.5em">
       <li><strong>Discover and pair.</strong> List rasters under both output prefixes, detect stage, keep only symmetric pairs so nothing is compared against a gap.</li>
       <li><strong>Compare per pixel.</strong> Decode reflectance for both versions, compute the difference field, and summarize it.</li>
       <li><strong>Decide against a threshold.</strong> A band passes when the absolute mean reflectance difference is within the configured threshold for that band.</li>
     </ol>
-    <aside class="notes">So what does the suite actually do. It compares the outputs of the old and new LaSRC containers, and it does so at two stages: the immediate LaSRC outputs, the surface reflectance band files, and the final HLS outputs, the L30 and S30 products. That second stage matters because it tells us whether a difference at the LaSRC step survives into the delivered product or gets absorbed downstream. The current reference set is ten golden granules of Landsat 8, chosen to span a representative range of targets, seven bands each from ultrablue through to red edge three, which comes to 432 rasters and about 46 gigabytes on each side of the comparison. The workflow is three steps. First, discover and pair: list the rasters under both prefixes, detect which stage each belongs to, and keep only the symmetric pairs, so we never compare a file against a gap and call it a difference. Second, compare per pixel: decode reflectance for both versions, compute the difference field, summarise it. Third, decide against a threshold: a band passes when the absolute mean reflectance difference between the two outputs is within the configured threshold for that band. That last step is what turns a pile of plots into a pass or fail that a pipeline can act on.</aside>
+    <aside class="notes">So what does the suite actually do. It compares the outputs of the old and new LaSRC containers, and it does so at two stages: the immediate LaSRC outputs, the surface reflectance band files, and the final HLS outputs, the L30 and S30 products. That second stage matters because it tells us whether a difference at the LaSRC step survives into the delivered product or gets absorbed downstream. The current run covers three hundred and fifty three granules, chosen to span a representative range of targets, seven bands each from coastal aerosol through to SWIR two. The workflow is three steps. First, discover and pair: list the rasters under both prefixes, detect which stage each belongs to, and keep only the symmetric pairs, so we never compare a file against a gap and call it a difference. Second, compare per pixel: decode reflectance for both versions, compute the difference field, summarise it. Third, decide against a threshold: a band passes when the absolute mean reflectance difference between the two outputs is within the configured threshold for that band. That last step is what turns a pile of plots into a pass or fail that a pipeline can act on.</aside>
   </section>
 
   <!-- 17 - ONE COMPARISON -->
@@ -606,10 +606,6 @@
     <img class="fig" style="max-height:330px;width:auto" src="images/granule-panel-rows.png"
          alt="Two band rows from the granule comparison panel. Each row shows, left to right, the LaSRC C surface reflectance image, the LaSRC Rust surface reflectance image, the difference map annotated with mean difference and threshold decision, a histogram overlay of both distributions, and a scatter plot of Rust against C values.">
     <p class="muted-cap" style="text-align:center;margin-top:.15em">Two of seven band rows, one granule. Left to right: C reflectance &middot; Rust reflectance &middot; difference with decision &middot; histogram overlay &middot; scatter</p>
-    <div class="todo slim">
-      <span class="tag">Regenerate before presenting</span>
-      <p>Figure is from an earlier validation run. Re-export the granule panel from the current notebook run and replace <span class="inlinecode">images/granule-panel-rows.png</span>.</p>
-    </div>
     <aside class="notes">This is what a single comparison looks like, and I am showing two of the seven band rows for one granule so that it is legible. Reading left to right. First column, the surface reflectance image produced by LaSRC C. Second column, the same band produced by LaSRC Rust. You are meant to find those two indistinguishable, and you do. Third column is the difference map, Rust minus C, with the summary statistics and the threshold decision printed onto it, so you can see not just how large the difference is but where in the scene it sits, which turns out to matter a great deal when you are hunting a bug. Fourth is a histogram overlay of both distributions, and fifth is a scatter of Rust against C values pixel by pixel. The panel runs for every band of every granule, which is what makes this a suite rather than a spot check. The thing I want to point at is the third column. A mean difference statistic tells you the size of a problem. The spatial pattern in that difference map tells you what kind of problem it is, and that is what let us find the bugs on the next slides.</aside>
   </section>
 
@@ -683,7 +679,7 @@
     <p class="kicker">Results</p>
     <h2>Where we are now</h2>
     <div class="statgrid" style="margin-top:.35em">
-      <div class="cell"><span class="n">100%</span><p class="k">Alignment between the Rust and ESPA C outputs, within the <strong>5 DN</strong> threshold, across every granule in the golden reference set</p></div>
+      <div class="cell"><span class="n">100%</span><p class="k">Alignment between the Rust and ESPA C outputs, within the <strong>5 DN</strong> threshold, across all <strong>353</strong> granules in the reference set</p></div>
       <div class="cell"><span class="n warm">30%</span><p class="k">Faster than the ESPA C implementation</p></div>
       <div class="cell"><span class="n warm">7%</span><p class="k">Less memory used</p></div>
     </div>
@@ -692,7 +688,7 @@
       <p style="font-size:.58em">The threshold was chosen on feedback from the science team, so that alignment between the ESPA and Rust outputs is measured against
       <strong>a defined target rather than a judgement call</strong>. 5 HLS DN corresponds to 0.0005 reflectance.</p>
     </div>
-    <aside class="notes">So where did we land. Two results. First, one hundred percent alignment between the Rust and the ESPA C LaSRC outputs, within the five DN threshold, for every granule in the golden granules reference set. Second, the Rust port runs about thirty percent faster using about seven percent less memory. I want to say a word about the threshold, because a number like five DN sounds arbitrary unless you know where it came from. We selected it based on feedback from the science team, precisely so that we had a well defined target we were working towards rather than a judgement call about whether two images looked close enough. Five HLS DN corresponds to 0.0005 reflectance. Having that number fixed in advance changed the character of the work: every fix either moved a band inside the threshold or it did not, and there was nothing to negotiate. If you take one process lesson from this talk, I would suggest it is that one. Agree the acceptance threshold before you start, with the people whose judgement you are encoding.</aside>
+    <aside class="notes">So where did we land. Two results. First, one hundred percent alignment between the Rust and the ESPA C LaSRC outputs, within the five DN threshold, across all three hundred and fifty three granules in the reference set. Second, the Rust port runs about thirty percent faster using about seven percent less memory. I want to say a word about the threshold, because a number like five DN sounds arbitrary unless you know where it came from. We selected it based on feedback from the science team, precisely so that we had a well defined target we were working towards rather than a judgement call about whether two images looked close enough. Five HLS DN corresponds to 0.0005 reflectance. Having that number fixed in advance changed the character of the work: every fix either moved a band inside the threshold or it did not, and there was nothing to negotiate. If you take one process lesson from this talk, I would suggest it is that one. Agree the acceptance threshold before you start, with the people whose judgement you are encoding.</aside>
   </section>
 
   <!-- 22 - THE EVIDENCE -->
@@ -701,21 +697,19 @@
     <h2>Validation results</h2>
     <div class="cols" style="margin-top:.2em">
       <div class="col" style="flex:1">
-        <img class="fig" style="max-height:300px;width:auto" src="images/validation-boxplot.png"
-             alt="Box plot of the distribution of per-granule mean absolute reflectance difference for each of the seven bands, with the threshold drawn as a dashed reference line.">
-        <p class="muted-cap" style="text-align:center">Per-granule mean absolute difference by band, against the threshold line</p>
+        <img class="fig" style="max-height:330px;width:auto" src="images/distribution_summary_immediate_20260922_150055.png"
+             alt="Box plot of the distribution of per-granule mean absolute reflectance difference for each of the seven bands. Every band sits flat at zero, far below the dashed 0.0005 reflectance threshold line, which is equivalent to 5 HLS DN.">
+        <p class="muted-cap" style="text-align:center">Per-granule mean absolute difference by band, against the 5 DN threshold</p>
       </div>
       <div class="col" style="flex:1">
-        <img class="fig" style="max-height:300px;width:auto" src="images/validation-scatter.png"
-             alt="Grid of scatter plots, one per band, of mean surface reflectance from LaSRC C against LaSRC Rust, annotated with the number of granules, pass rate and correlation.">
+        <img class="fig" style="max-height:330px;width:auto" src="images/scatter_summary_immediate_20260922_150055.png"
+             alt="Grid of scatter plots, one per band, of mean surface reflectance from LaSRC C against LaSRC Rust across 353 granules. Every panel reports a 100 percent pass rate and a correlation of 1.000000, with all points lying on the one to one line.">
         <p class="muted-cap" style="text-align:center">Mean reflectance, C against Rust, one panel per band</p>
       </div>
     </div>
-    <div class="todo slim">
-      <span class="tag">Regenerate before presenting</span>
-      <p>Both figures are from an earlier validation run and <strong>do not yet show the final result</strong>. Replace <span class="inlinecode">images/validation-boxplot.png</span> and <span class="inlinecode">images/validation-scatter.png</span> from the current run before this deck is shown.</p>
-    </div>
-    <aside class="notes">And this is the evidence behind that claim, produced by the suite rather than assembled by hand, which is the entire point. On the left, the distribution of per granule mean absolute reflectance difference for each band, with the threshold drawn as a reference line, so you can see both the typical case and the tail. On the right, mean surface reflectance from the C implementation plotted against the Rust implementation, one panel per band, annotated with the number of granules and the correlation. What I want you to notice is not any individual number but the shape of the argument. This is a repeatable, objective comparison that anybody can re-run and that produces the same plots from the same inputs. When the science team proposes an algorithmic change next quarter, this is the artifact that tells us what it did, and it tells us in the same form every time. That is worth considerably more than the specific result on this slide.</aside>
+    <div class="band" style="margin-top:.4em"><b>353</b> granules &middot;
+      <b>100%</b> pass on all seven bands, every per-granule difference flat against the 0.0005 reflectance line</div>
+    <aside class="notes">And this is the evidence behind that claim, produced by the suite rather than assembled by hand, which is the entire point. On the left, the distribution of per granule mean absolute reflectance difference for each band, with the five DN threshold drawn as a reference line. The thing to notice is that every band is flat on the floor. The differences are not close to the threshold, they are two orders of magnitude below it. On the right, mean surface reflectance from the C implementation plotted against the Rust implementation, one panel per band, across three hundred and fifty three granules. Every panel reports a hundred percent pass rate and a correlation of one point zero zero zero zero zero zero. What I want you to notice is not any individual number but the shape of the argument. This is a repeatable, objective comparison that anybody can re-run and that produces the same plots from the same inputs. When the science team proposes an algorithmic change next quarter, this is the artifact that tells us what it did, and it tells us in the same form every time. That is worth considerably more than the specific result on this slide.</aside>
   </section>
 
   <!-- 23 - PERFORMANCE -->
@@ -738,10 +732,6 @@
         </div>
       </div>
     </div>
-    <div class="todo">
-      <span class="tag">Drop in</span>
-      <p>Space reserved for the fuller performance picture: runtime table, memory profile, or per-granule breakdown. Replace this block with the figure or table when the numbers are ready.</p>
-    </div>
     <aside class="notes">On performance, the headline is thirty percent faster with seven percent less memory, and those numbers come out of the same validation run that produces the reflectance comparison, which is exactly the property we wanted. We do not have a separate performance exercise that might drift out of step with the fidelity exercise. They are one process. The context I would add is that these are the gains from targeted tweaks only. Throughout this work the priority was matching the C implementation exactly, and performance work was strictly secondary to that. Which means almost every structural performance opportunity is still available to us, and we have not really started on them. At the scale we process, runtime is directly processing cost, so this is a line item and not just an engineering satisfaction.</aside>
   </section>
 
@@ -756,8 +746,13 @@
       <li><strong>Structural refactoring.</strong> The Rust port currently
         mostly mirrors the original ESPA C structure. We will incrementally restructure it to improve maintainability and to make it easier for outside contributors to work on.</li>
       <li><strong>Performance optimization.</strong> Beyond the targeted tweaks already made, there is a large space of changes available to reduce runtime, resource utilization and overall processing cost.</li>
+      <li><strong>Collaborative HLS Science + Production team
+          evaluation</strong> We'll review the results of all validation suite output with the HLS science team.</li>
+      <li><strong>Production deployment</strong> After the finalized Rust port
+        has gotten approval from the science team we'll integrate it into
+        production.</li>
     </ol>
-    <div class="band" style="margin-top:.55em">For all three, the time to
+    <div class="band" style="margin-top:.55em">For all these steps, the time to
       implement and test is <b>drastically lower than the same work would take
         in the ESPA codebase.</b></div>
     <aside class="notes">What happens next, in rough priority order. First and most important, GDAS. The largest single rationale for undertaking this port was to reduce the level of effort involved in switching to GDAS based auxiliary data to support the HLS low latency solution, and we will begin testing and evaluation of that code path in this PI. This is the slide where the whole exercise either pays off or does not, and it is the one I would ask you to hold us to. Second, structural refactoring. The Rust port currently reflects the original ESPA C structure fairly closely, because that is what made equivalence provable. Now that equivalence is established we will incrementally restructure it to improve maintainability and to lower the barrier for other contributors. Third, performance optimisation, which as I said is largely untouched. And the thread running through all three is that the time to implement and test each of them is drastically lower than the same work would take in the ESPA codebase. That reduction is the return on the port, and it is why I would argue the port pays for itself even before the community goal.</aside>

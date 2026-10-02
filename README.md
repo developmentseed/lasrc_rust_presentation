@@ -41,27 +41,20 @@ Chris Holden's ACIX-II and AERONET work as the direction of travel.
 
 ## Before presenting
 
-Three slides carry `.todo` blocks. Search the source for `class="todo"`.
+Two slides carry `.todo` blocks. Search the source for `class="todo"`.
 
 | Slide | What it needs |
 |---|---|
 | 17 | Re-export the granule comparison panel from the current validation run, replacing `images/granule-panel-rows.png` |
-| 21 | Confirm the headline figures (100% within 5 DN, 30% faster, 7% less memory) against the current run |
-| 22 | **Required.** Both figures are from an earlier run and do not show the final result. Replace `images/validation-boxplot.png` and `images/validation-scatter.png` |
 | 23 | Optional. Space reserved for a fuller performance picture: runtime table, memory profile or per-granule breakdown |
-
-Slide 22 is the one that matters. The stored run those figures came from passes 100%
-against the per-band Bandpass MD reference thresholds, but scores 60% to 100% per band
-against the stricter 5 DN bar that slide 21 claims. Showing them as they are invites a
-question the deck cannot answer.
 
 ## Figures
 
 | File | Source |
 |---|---|
 | `granule-panel-rows.png` | Two band rows cropped from the per-granule comparison panel, `hls-application` `notebooks/LaSRC_container_validation.ipynb` |
-| `validation-boxplot.png` | Per-granule mean absolute difference by band against the threshold, same notebook |
-| `validation-scatter.png` | Mean reflectance C against Rust, one panel per band, same notebook |
+| `distribution_summary_immediate_20260922_150055.png` | Per-granule mean absolute difference by band against the 5 DN threshold, 2026-09-22 run |
+| `scatter_summary_immediate_20260922_150055.png` | Mean reflectance C against Rust, one panel per band, 353 granules, 2026-09-22 run |
 | `ODSI full light.png` | ODSI logo |
 | `rust-logo.png`, `rust-logo-blk.svg` | Rust Foundation, <https://www.rust-lang.org/policies/media-guide> |
 
